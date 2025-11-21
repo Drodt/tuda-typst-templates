@@ -7,7 +7,7 @@
 #import "../../../common/typearea.typ": typearea
 #import "common/util.typ": *
 
-#import "@preview/i-figured:0.2.3"
+#import "@preview/i-figured:0.2.4"
 
 
 
@@ -77,6 +77,7 @@
   // When this is not none a references section will appear at the end of the document.
   // E.g. bib: bibliography("my_references.bib")
   bib: none,
+  outline_bib: false,
   // Add an English translation to the "Erklärung zur Abschlussarbeit".
   thesis_statement_pursuant_include_english_translation: false,
   // Insert an image as a signature on the "Erklärung zur Abschlussarbeit"
@@ -141,6 +142,7 @@
   // @todo This seems to increase the equation number in steps of 2 instead of one
   equation_numbering_per_chapter: false,
   two_side: false,
+  appendix: none,
   // content.
   body,
 ) = context {
@@ -693,11 +695,17 @@
   ///////////////////////////////////////
   // references
   if bib != none [
-    #set heading(outlined: false)
+    #set heading(outlined: outline_bib)
     //#set text(font: "XCharter")
     //#set heading(outlined: false)
     //#bibliography(bibliography_path, style: "ieee", ..bibliography_params_dict)
     #set bibliography(style: "ieee")
     #bib
   ]
+
+  if appendix != none {
+    counter(heading).update(0)
+    set heading(numbering: "A.1", supplement: "Appendix")
+    appendix
+  }
 }
