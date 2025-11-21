@@ -1,6 +1,3 @@
-
-
-
 // tuda colors as key-value array
 // from https://github.com/tudace/tuda_latex_templates/blob/main/tex/tudacolors.def
 #let tuda_colors = (
@@ -102,5 +99,5 @@
   "11a": white,
   "11b": white,
   "11c": white,
-  "11d": white
+  "11d": white,
 )

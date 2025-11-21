@@ -49,7 +49,9 @@
   let w-div = width / div
 
   let top-margin = h-div + if header-include { header-space } else { 0pt }
-  let bottom-margin = h-div * 2 + if footer-include { footer-space } else { 0pt }
+  let bottom-margin = (
+    h-div * 2 + if footer-include { footer-space } else { 0pt }
+  )
 
   if two-sided {
     (

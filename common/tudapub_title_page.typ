@@ -5,7 +5,8 @@
 #let tuda-dr-text(ty) = {
   let lt = lower(ty)
   if lt == "rernat" {
-    [Zur~Erlangung~des~Grades~eines~Doktors~der~Naturwissenschaften~(Dr. rer. nat.)]
+    [Zur~Erlangung~des~Grades~eines~Doktors~der~Naturwissenschaften~(Dr. rer.
+      nat.)]
   } else if lt == "ing" {
     [Zur~Erlangung~des~akademischen~Grades~Doktor-Ingenieur~(Dr.-Ing.)]
   } else if lt == "phil" {
@@ -71,13 +72,15 @@
 
   let (thesis_type_text, date_text, reviewers) = {
     if type(thesis_type) == str {
-      let txt = if lower(thesis_type) == "master" { "Master" } else if lower(thesis_type) == "bachelor" {
+      let txt = if lower(thesis_type) == "master" { "Master" } else if (
+        lower(thesis_type) == "bachelor"
+      ) {
         "Bachelor"
       } else {
         panic("thesis_type has to be either 'master' or 'bachelor'")
       }
       (
-        [#thesis_type_text thesis by #author],
+        [#txt thesis by #author],
         [Date of submission: #submission_date],
         [#for (i, reviewer_name) in reviewer_names.enumerate() [
           #(i + 1). Review: #reviewer_name
@@ -96,7 +99,8 @@
         date_of_exam = date_of_submission
       }
       let exam-date = format-date(date_of_exam, language)
-      let date-txt = [Tag der Einreichung: #submission_date, Tag der Prüfung: #exam-date]
+      let date-txt = [Tag der Einreichung: #submission_date, Tag der Prüfung:
+        #exam-date]
 
       if location == "Darmstadt" {
         location = "Darmstadt, Technische Universität Darmstadt"
@@ -220,7 +224,9 @@
                       set image(height: logo_tud_height * (2 / 3))
                       logo_institute
                     } else {
-                      panic("logo_institute_sizeing_type has to be width or height")
+                      panic(
+                        "logo_institute_sizeing_type has to be width or height",
+                      )
                     }
                   }
                 ]
