@@ -190,7 +190,7 @@
           let tud_logo = [
             #set image(height: logo_tud_height)
             #if logo_tuda == none {
-              box(fill: white)[logo_tuda \ not set!]
+              box(height: logo_tud_height, fill: white)[logo_tuda \ not set!]
             } else {
               logo_tuda
             }
@@ -209,7 +209,7 @@
                 #tud_logo
               ],
               // sub logo
-              v(5mm),
+              if logo_institute != none { v(5mm) },
               // height from design guidelines
               if logo_institute != none {
                 box(inset: (right: logo_institute_offset_right), fill: black)[
@@ -231,30 +231,30 @@
                   }
                 ]
               },
+              if logo_sub_content_text != none { v(5mm) },
               // sub box with custom text
+              let logo_sub_box_extend_dx = -tud_logo_offset_right,
               if logo_sub_content_text != none {
-                box(
-                  width: tud_logo_width,
+                move(dx: logo_sub_box_extend_dx, box(
+                  width: tud_logo_width + logo_sub_box_extend_dx,
                   outset: 0mm,
                   fill: white,
                   inset: (
                     top: 6pt,
                     bottom: 6pt,
                     left: 4.5mm,
-                    right: 6pt,
+                    right: logo_sub_box_extend_dx,
                   ),
                   align(left)[
                     #set text(weight: "regular", size: 9.96pt)
                     #logo_sub_content_text
                   ],
-                )
+                ))
               },
             )
           ]
         }
-
       ],
     )
   ]
 }
-

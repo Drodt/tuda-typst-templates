@@ -26,12 +26,13 @@
   language: "en",
 
 
-  abstract: [The abstract...],
+  //abstract: [The abstract...],
   logo_tuda: image("logos/tuda_logo.svg"),
 
   margin: tud_page_margin_big,
 
   bib: bibliography("./latex_ref/DEMO-TUDaBibliography.bib", full: true), //, style: "spie")
+  page_numbering_starts_after_outline: false,
 )
 
 
@@ -174,6 +175,9 @@ figure. And another sentence containing no meaning.
 
 #pagebreak()
 
+
+#set heading(outlined: false)
+= Not Compare tests
 ==== Figures with Tables
 Here is @fig_test_table. Here is more text. #figure(
   table(
@@ -201,178 +205,35 @@ This is a list:
 + an item
 + another item
 
-=== Subsubheading
-
-
-#lorem(584)
+== Test hyphenate ...
 #pagebreak()
-== Spezielle Optionen für Abschlussarbeiten
+#set text(hyphenate: false)
+#set text(alternates: true)
+Test Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim
+aeque doleamus animo, cum corpore dolemus
+
+New paragraph... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magnam aliquam quaerat voluptatem.
+Ut enim aeque doleamus animo, cum corpore dolemus Lorem ipsum dolor sit amet,
+consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+dolore magnam aliquam quaerat voluptatem. Ut enim aeque doleamus animo, cum
+corpore dolemus Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magnam aliquam quaerat voluptatem.
+Ut enim aeque doleamus animo, cum corpore dolemus Lorem ipsum dolor sit amet,
+consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+dolore magnam aliquam quaerat voluptatem. Ut enim aeque doleamus animo, cum
+corpore dolemus Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magnam aliquam quaerat voluptatem.
+Ut enim aeque doleamus animo, cum corpore dolemus
+
+== Subheading
+Test Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim
+aeque doleamus animo, cum corpore dolemus, fieri tamen permagna accessio potest,
+si aliquod aeternum et infinitum impendere malum nobis opinemur. Quod idem licet
+transferre in voluptatem, ut postea.
 
 
-#pagebreak(weak: true)
-Es besteht zusätzlich die Möglichkeit ein anderssprachiges Affidavit als
-Ergänzung mit abzudrucken. Um die Struktur und die ggf. notwendige
-Sprachumschaltung zu erledigen, existiert hierfür ab Version 2.03 eine Umgebung:
-
-
-== Lets do some math
-Bla _blub_ *bold*. Math: $x + y (a+b)/2$.
-
-
-$
-  "Align:"& \
-  & x+y^2 && != 27 sum_(n=0)^N e^(i dot pi dot n) \
-  & "s.t. " && b c
-  \
-  \
-  & mat(
-    1, 3;
-    3, 4
-  )^T
-  && =
-  alpha
-  mat(
-    x, y;
-    x_2, y_2
-  )^T
-  \
-  \
-  & underbrace(cal(B) >= B, "This is fancy!")
-$
-$
-  x & = y^2 + 12 & "(This does A)"
-$
-$
-  y & = z & "(This does B)"
-$ <eq.last>
-In @eq.last we can see cool stuff.
-
-=== Math in Latex Notation
-#table(
-  columns: 2,
-  ```latex
-  mitex(`
-  \begin{pmatrix}
-    \dot{r}_x + \omega r_x - \omega p_x \\
-    \dot{r}_x - \omega r_x + \omega p_x
-  \end{pmatrix}
-  =
-  \begin{pmatrix}
-    +\omega \xi_x - \omega p_x \\
-    -\omega s_x + \omega p_x
-  \end{pmatrix}
-  `)
-  ```,
-  mitex(
-    `
-    \begin{pmatrix}
-        \dot{r}_x + \omega r_x - \omega p_x \\
-        \dot{r}_x - \omega r_x + \omega p_x
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-        +\omega \xi_x - \omega p_x \\
-        -\omega s_x + \omega p_x
-    \end{pmatrix}
-`,
-  ),
-)
-
-More latex math:
-#mitex(
-  `
-  \newcommand{\f}[2]{#1f(#2)}
-  \f\relax{x} = \int_{-\infty}^\infty
-    \f\hat\xi\,e^{2 \pi i \xi x}
-    \,d\xi
-`,
-)
-
-We can also import basic latex (just a few commands are suppored) via `mitex`:
-#mitext(
-  `
-  \subsubsection{This is Generated from Latex}
-
-  A \textbf{strong} text, a \emph{emph} text and inline equation $x + y$.
-
-  Also block \eqref{eq:pythagoras}.
-
-  \begin{equation}
-    a^2 + b^2 = c^2 \label{eq:pythagoras}
-  \end{equation}
-`,
-)
-
-
-
-
-== Another Section
-Some graphics: \
-#box(stroke: black, inset: 5mm)[
-  test in box
-  #circle(width: 2.2cm, inset: 2mm)[
-    And in the circle
-  ]
-]
-
-Some more text here. #lorem(20) In @fig.myfig we can see stuff.
-==== Deep section
-#figure(
-  [
-    #rect(inset: 20.9pt)[Dummy Test]
-  ],
-  caption: [
-    This is a figure
-  ],
-)<fig.myfig>
-
-
-Next is @fig:test_f. When using `figure_numbering_per_chapter: true` figures
-need to referenced with `@fig:<labelname>` #figure(
-  [
-    #rect(inset: 20.9pt)[Dummy Test]
-  ],
-  caption: [
-    This is a figure
-  ],
-)<test_f>
-
-
-#lorem(100)
-===== Level 5 Heading
-#lorem(50)
-
-===== Level 5 Heading
-#lorem(50)
-
-A term list:
-/ A: This is a term. #lorem(20)
-/ B: This is a term. #lorem(20)
-/ C: This is a term. #lorem(20)
-
-
-= Next Chapter with Figures
-
-#figure(
-  [
-    #rect(inset: 20.9pt)[Dummy Test]
-  ],
-  caption: [
-    This is a figure
-  ],
-)
-
-First eq:
-$
-  x
-$
-
-Second eq:
-$
-  y
-$
-
-Third eq:
-$
-  y
-$
+#set text(hyphenate: true)
+#lorem(135)

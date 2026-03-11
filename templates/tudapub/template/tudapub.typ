@@ -15,10 +15,12 @@
 #let tudapub(
   title: [Title],
   title_german: [Title German],
+  // Adjust height of title on title page if title gets to long
+  title_height: 3.5em,
   // Adds an abstract page after the title page with the corresponding content.
   // E.g. abstract: [My abstract text...]
   abstract: none,
-  // "master" or "bachelor" thesis or a dictionary like `(type: "dr", dr: "rernat")`
+  // "master" or "bachelor" thesis
   thesis_type: "master",
   // The code of the accentcolor.
   // A list of all available accentcolors is in the list tuda_colors
@@ -112,6 +114,9 @@
   //   = Another Page
   // ]
   additional_pages_after_outline_table_of_contents: none,
+  // When disabled, numbering is in line with the latex template where every page is counted.
+  // Additionally, every page that is not the title page displays its page number in the footer.
+  page_numbering_starts_after_outline: true,
   // For headings with a height level than this number no number will be shown.
   // The heading with the lowest level has level 1.
   // Note that the numbers of the first two levels will always be shown.
@@ -232,20 +237,15 @@
     )[
       #set align(right)
       // context needed for page counter for typst >= 0.11.0
-      #context [
-        #let counter_disp = counter(page).display()
-        //#hide(counter_disp)
-        //#counter_disp
-        #context {
-          let after_table_of_contents = (
-            query(selector(<__after_table_of_contents>).before(here())).len()
-              >= 1
-          )
-          if after_table_of_contents { counter_disp } else {
-            hide(counter_disp)
-          }
-        }
-      ]
+      #context {
+        let counter_disp = counter(page).display()
+        let after_table_of_contents = (
+          query(selector(<__after_table_of_contents>).before(here())).len() >= 1
+        )
+        if not page_numbering_starts_after_outline or after_table_of_contents {
+          counter_disp
+        } else { hide(counter_disp) }
+      }
     ],
   )
 
@@ -549,6 +549,7 @@
       logo_institute_sizeing_type: logo_institute_sizeing_type,
       logo_institute_offset_right: logo_institute_offset_right,
       logo_sub_content_text: logo_sub_content_text,
+      title_height: title_height,
     )
   }
 
@@ -673,14 +674,15 @@
   // main body starts at the next page after table of contents
   pagebreak(weak: true)
   additional_pages_after_outline_table_of_contents
+  if additional_pages_after_outline_table_of_contents != none [
+    #pagebreak(weak: true)
+  ]
 
   // mark start of body
-  //box[#figure(none) <__after_table_of_contents>]
   [#metadata("After Table of Contents") <__after_table_of_contents>]
-  //[abc]
 
-  // restart page counter
-  counter(page).update(1)
+  // restart page counter if desired
+  if page_numbering_starts_after_outline { counter(page).update(1) }
   // restart heading counter
   counter(heading).update(0)
 

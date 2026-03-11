@@ -1,0 +1,1 @@
+latexmk -outdir=build
