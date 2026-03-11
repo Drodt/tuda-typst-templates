@@ -1,7 +1,6 @@
 #let dict_de = (
   locale: "de",
   task: "Aufgabe",
-
   sheet: "Übungsblatt",
   group: "Übungsgruppe",
   tutor: "Tutor",
@@ -12,13 +11,12 @@
   term: "Semester",
   summer_term: "Sommersemester",
   winter_term: "Wintersemester",
-  date: "Abgabe"
+  date: "Abgabe",
 )
 
 #let dict_en = (
   locale: "en",
   task: "Task",
-
   sheet: "Sheet",
   group: "Exercise group",
   tutor: "Tutor",
@@ -29,7 +27,7 @@
   term: "Term",
   summer_term: "Summer semester",
   winter_term: "Winter semester",
-  date: "Due"
+  date: "Due",
 )
 
 #let dicts = (
@@ -44,7 +42,12 @@
 #let get-locale-dict(locale) = {
   let dict = dicts.at(locale, default: none)
   if dict == none {
-    panic("Unsupported locale: " + locale + ". Supported locales are: " + dicts.keys().join(", ", last: " and "))
+    panic(
+      "Unsupported locale: "
+        + locale
+        + ". Supported locales are: "
+        + dicts.keys().join(", ", last: " and "),
+    )
   }
   dict
 }
